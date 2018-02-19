@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmployeeDao.cs" />
     <Compile Include="Models\ModelGeneratorConfig.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

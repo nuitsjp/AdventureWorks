@@ -1615,9 +1615,6 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
 	    public virtual int BusinessEntityID { get; set; }
 	    public virtual string NationalIDNumber { get; set; }
 	    public virtual string LoginID { get; set; }
-	    public virtual string OrganizationNode { get; set; }
-		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-	    public virtual short? OrganizationLevel { get; set; }
 	    public virtual string JobTitle { get; set; }
 	    public virtual DateTime BirthDate { get; set; }
 	    public virtual string MaritalStatus { get; set; }
