@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="AdventureWorks.EmployeeManager.Presentation.Views.Error"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label Content="Error" Foreground="Red"/>
+    </Grid>
+</UserControl>

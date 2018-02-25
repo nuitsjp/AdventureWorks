@@ -1,9 +1,19 @@
-if exists (select 1 from sysobjects where id = object_id('EmployeePay'))
-	drop view EmployeePay
+DECLARE @LoginID nvarchar(max) = 'YOUR_ACCOUNT'
+
+update
+	HumanResources.Employee
+set
+	LoginID = @LoginID
+where
+	BusinessEntityID = 235
+GO
+
+if exists (select 1 from sysobjects where id = object_id('HumanResources.EmployeePay'))
+	drop view HumanResources.EmployeePay
 GO
 
 create view
-	EmployeePay
+	HumanResources.EmployeePay
 as select
 	EmployeePayHistory.BusinessEntityID,
 	EmployeePayHistory.Rate,
@@ -24,12 +34,12 @@ from
 GO
 
 
-if exists (select 1 from sysobjects where id = object_id('ManagedEmployee'))
-	drop view ManagedEmployee
+if exists (select 1 from sysobjects where id = object_id('HumanResources.ManagedEmployee'))
+	drop view HumanResources.ManagedEmployee
 GO
 
 create view
-	ManagedEmployee
+	HumanResources.ManagedEmployee
 as select
 	Employee.BusinessEntityID,
 	Person.FirstName,
@@ -59,7 +69,7 @@ from
 		on	Employee.BusinessEntityID = BusinessEntity.BusinessEntityID
 	inner join Person.Person
 		on	Employee.BusinessEntityID = Person.BusinessEntityID
-	inner join EmployeePay
+	inner join HumanResources.EmployeePay
 		on	Employee.BusinessEntityID = EmployeePay.BusinessEntityID
 	inner join HumanResources.EmployeeDepartmentHistory
 		on	Employee.BusinessEntityID = EmployeeDepartmentHistory.BusinessEntityID
