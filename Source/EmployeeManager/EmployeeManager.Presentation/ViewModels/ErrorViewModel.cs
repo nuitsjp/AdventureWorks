@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 {
-    public class ErrorViewModel : BindableBase
+    public class ErrorViewModel : ViewModelBase
     {
         public ErrorViewModel()
         {

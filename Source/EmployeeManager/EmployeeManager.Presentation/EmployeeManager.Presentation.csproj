@@ -59,6 +59,8 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\RegionNames.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
     </Compile>

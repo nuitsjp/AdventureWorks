@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 {
-    public class MenuViewModel : BindableBase
+    public class MenuViewModel : ViewModelBase
     {
         public MenuViewModel()
         {

@@ -3,7 +3,7 @@
 namespace AdventureWorks.EmployeeManager
 {
     /// <summary>
-    /// 管理対象の従業員クラス
+    /// 管理対象の従業員
     /// </summary>
     public class ManagedEmployee
     {

@@ -7,7 +7,7 @@ using Prism.Regions;
 
 namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : ViewModelBase
     {
         private readonly ILogin _login;
 
@@ -25,11 +25,11 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
         {
             if (_login.Authenticate())
             {
-                _regionManager.Regions["ContentRegion"].RequestNavigate(nameof(Menu));
+                RequestNavigate<MenuViewModel>(_regionManager);
             }
             else
             {
-                _regionManager.Regions["ContentRegion"].RequestNavigate(nameof(Error));
+                RequestNavigate<ErrorViewModel>(_regionManager);
             }
         }
     }
