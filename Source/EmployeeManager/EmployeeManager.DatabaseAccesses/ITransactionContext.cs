@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace AdventureWorks.EmployeeManager.Transaction
 {
@@ -6,6 +7,6 @@ namespace AdventureWorks.EmployeeManager.Transaction
     {
         IDbConnection Connection { get; }
 
-        IDbConnection Open();
+        IDisposable Open();
     }
 }

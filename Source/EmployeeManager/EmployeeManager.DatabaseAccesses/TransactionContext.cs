@@ -10,7 +10,7 @@ namespace AdventureWorks.EmployeeManager.Transaction
 
         public static void SetOpenConnection(Func<IDbConnection> openConnection) => _openConnection = openConnection;
 
-        public IDbConnection Open()
+        public IDisposable Open()
         {
             Connection = _openConnection();
             return Connection;

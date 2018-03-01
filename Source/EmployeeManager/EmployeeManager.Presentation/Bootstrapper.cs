@@ -31,8 +31,9 @@ namespace AdventureWorks.EmployeeManager.Presentation
             base.ConfigureContainerBuilder(builder);
 
             // Views
-            builder.RegisterTypeForNavigation<Menu>();
             builder.RegisterTypeForNavigation<Error>();
+            builder.RegisterTypeForNavigation<Menu>();
+            builder.RegisterTypeForNavigation<ManagedEmployeeList>();
 
             // Usecases
             builder.RegisterType<Login>().As<ILogin>().SingleInstance();

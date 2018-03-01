@@ -73,10 +73,6 @@
       <Project>{ed257d22-a339-4be2-b02c-f3cd0f5aa6d6}</Project>
       <Name>EmployeeManager.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EmployeeManager.Transaction\EmployeeManager.Transaction.csproj">
-      <Project>{797f64bf-ac82-4868-9a07-1324c80dcf0b}</Project>
-      <Name>EmployeeManager.Transaction</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EmployeeManager\EmployeeManager.csproj">
       <Project>{74fcb52c-c4c3-4f49-bbbc-d8c7f349e50d}</Project>
       <Name>EmployeeManager</Name>
