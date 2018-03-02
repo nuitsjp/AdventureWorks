@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using AdventureWorks.EmployeeManager.DatabaseAccesses;
-using AdventureWorks.EmployeeManager.Transaction;
 using Castle.DynamicProxy;
 
 namespace AdventureWorks.EmployeeManager.Services.Imple

@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.EmployeeManager.Transaction;
 using Dapper.FastCrud;
 
 namespace AdventureWorks.EmployeeManager.DatabaseAccesses
@@ -18,14 +17,6 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
         public ManagedEmployeeDao(ITransactionContext transactionContext)
         {
             _transactionContext = transactionContext;
-        }
-
-        public virtual ManagedEmployee FindByLoginID(string loginID)
-        {
-            return Connection.Find<ManagedEmployee>(statement =>
-                statement
-                    .Where($"{nameof(ManagedEmployee.LoginID)} = '{loginID}'")
-            ).SingleOrDefault();
         }
     }
 }

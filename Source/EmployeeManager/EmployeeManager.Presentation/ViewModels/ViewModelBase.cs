@@ -12,17 +12,17 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
     {
         public bool KeepAlive { get; private set; } = true;
 
-        protected void RequestNavigate<TViewModel>(IRegionManager regionManager)
+        protected void RequestNavigate<TViewModel>(IRegionManager regionManager, string regionName = RegionNames.ContentRegion)
             where TViewModel : ViewModelBase
         {
             var typeName = typeof(TViewModel).Name;
             var viewName = typeName.Substring(0, typeName.Length - "ViewModel".Length);
-            regionManager.RequestNavigate(RegionNames.ContentRegion, viewName);
+            regionManager.RequestNavigate(regionName, viewName);
         }
 
-        protected void Pop(IRegionManager regionManager)
+        protected void Pop(IRegionManager regionManager, string regionName = RegionNames.ContentRegion)
         {
-            var journal = regionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal;
+            var journal = regionManager.Regions[regionName].NavigationService.Journal;
             if (journal.CanGoBack)
             {
                 KeepAlive = false;

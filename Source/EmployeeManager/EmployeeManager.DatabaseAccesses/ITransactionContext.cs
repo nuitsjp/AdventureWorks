@@ -1,12 +1,11 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 
-namespace AdventureWorks.EmployeeManager.Transaction
+namespace AdventureWorks.EmployeeManager.DatabaseAccesses
 {
     public interface ITransactionContext
     {
         IDbConnection Connection { get; }
 
-        IDisposable Open();
+        ITransaction Open();
     }
 }

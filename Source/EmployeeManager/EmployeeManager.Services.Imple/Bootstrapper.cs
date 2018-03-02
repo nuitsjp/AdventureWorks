@@ -5,7 +5,6 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using AdventureWorks.EmployeeManager.DatabaseAccesses;
-using AdventureWorks.EmployeeManager.Transaction;
 using AutoMapper;
 using Castle.DynamicProxy;
 using SimpleInjector;
@@ -55,6 +54,7 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
             container.Register<EmployeeService>(Lifestyle.Scoped);
 
             // DatabaseAccesses
+            container.Register<EmployeeDao>(Lifestyle.Scoped);
             container.Register<ManagedEmployeeDao>(Lifestyle.Scoped);
 
             container.Verify();

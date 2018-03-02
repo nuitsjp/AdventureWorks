@@ -2,7 +2,6 @@
 {
     public interface ILogin
     {
-        ManagedEmployee Current { get; }
         bool Authenticate();
     }
 }

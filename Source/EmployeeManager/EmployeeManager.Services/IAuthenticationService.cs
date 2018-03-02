@@ -6,6 +6,6 @@ namespace AdventureWorks.EmployeeManager.Services
     public interface IAuthenticationService
     {
         [OperationContract]
-        ManagedEmployee Authenticate();
+        bool Authenticate();
     }
 }

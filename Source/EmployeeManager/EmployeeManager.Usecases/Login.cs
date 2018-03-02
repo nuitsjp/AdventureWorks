@@ -5,7 +5,6 @@ namespace AdventureWorks.EmployeeManager.Usecases
     public class Login : ILogin
     {
         private readonly IAuthenticationService _authenticationService;
-        public ManagedEmployee Current { get; private set; }
 
         public Login(IAuthenticationService authenticationService)
         {
@@ -14,8 +13,7 @@ namespace AdventureWorks.EmployeeManager.Usecases
 
         public bool Authenticate()
         {
-            Current = _authenticationService.Authenticate();
-            return Current != null;
+            return _authenticationService.Authenticate();
         }
     }
 }

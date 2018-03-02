@@ -16,7 +16,6 @@ namespace AdventureWorks.EmployeeManager.ServiceHost
                 // The service can now be accessed.
                 Console.WriteLine("The service is ready.");
                 Console.WriteLine("Press <ENTER> to terminate service.");
-                Console.WriteLine();
                 Console.ReadLine();
             }
         }

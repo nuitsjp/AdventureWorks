@@ -23,7 +23,8 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 
         private void Authenticate()
         {
-            if (_login.Authenticate())
+            var isAuthenticated = _login.Authenticate();
+            if (isAuthenticated)
             {
                 RequestNavigate<MenuViewModel>(_regionManager);
             }

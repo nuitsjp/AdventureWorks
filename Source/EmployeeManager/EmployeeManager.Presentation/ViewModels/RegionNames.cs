@@ -8,6 +8,6 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 {
     public static class RegionNames
     {
-        public static readonly string ContentRegion = "ContentRegion";
+        public const string ContentRegion = "ContentRegion";
     }
 }

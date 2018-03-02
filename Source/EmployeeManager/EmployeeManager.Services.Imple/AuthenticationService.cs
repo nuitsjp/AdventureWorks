@@ -11,17 +11,17 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly ManagedEmployeeDao _managedEmployeeDao;
+        private readonly EmployeeDao _employeeDao;
 
-        public AuthenticationService(ManagedEmployeeDao managedEmployeeDao)
+        public AuthenticationService(EmployeeDao employeeDao)
         {
-            _managedEmployeeDao = managedEmployeeDao;
+            _employeeDao = employeeDao;
         }
 
-        public virtual ManagedEmployee Authenticate()
+        public virtual bool Authenticate()
         {
             var name = ServiceSecurityContext.Current.WindowsIdentity.Name;
-            return Mapper.Map<ManagedEmployee>(_managedEmployeeDao.FindByLoginID(name));
+            return _employeeDao.FindByLoginID(name) != null;
         }
     }
 }

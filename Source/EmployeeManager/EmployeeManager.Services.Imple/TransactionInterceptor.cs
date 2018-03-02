@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using AdventureWorks.EmployeeManager.Transaction;
+using AdventureWorks.EmployeeManager.DatabaseAccesses;
 using Castle.DynamicProxy;
 
 namespace AdventureWorks.EmployeeManager.Services.Imple
@@ -21,11 +21,10 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
 
         public void Intercept(IInvocation invocation)
         {
-            using (var scope = new TransactionScope())
-            using (var disposable = _transactionContext.Open())
+            using (var transaction = _transactionContext.Open())
             {
                 invocation.Proceed();
-                scope.Complete();
+                transaction.Complete();
             }
         }
     }
