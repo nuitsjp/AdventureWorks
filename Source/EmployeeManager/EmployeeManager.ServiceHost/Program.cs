@@ -8,7 +8,7 @@ namespace AdventureWorks.EmployeeManager.ServiceHost
     {
         static void Main(string[] args)
         {
-            using (var serviceHost = new EmployeeServiceHost())
+            using (var serviceHost = new SystemManagerServiceHosts())
             {
                 // Open the ServiceHost to create listeners and start listening for messages.
                 serviceHost.Open();

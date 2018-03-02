@@ -7,10 +7,6 @@ namespace AdventureWorks.EmployeeManager.Services
     public interface IEmployeeService
     {
         [OperationContract]
-        [AuthenticationNotRequired]
-        ManagedEmployee Authenticate();
-
-        [OperationContract]
         IEnumerable<ManagedEmployee> GetManagedEmployees();
     }
 }

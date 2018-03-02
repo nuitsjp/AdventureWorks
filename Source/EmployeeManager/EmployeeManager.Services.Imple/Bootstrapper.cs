@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Linq.Expressions;
 using AdventureWorks.EmployeeManager.DatabaseAccesses;
 using AdventureWorks.EmployeeManager.Transaction;
@@ -43,12 +44,14 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
 
+            container.InterceptWith<IAuthenticationService, TransactionInterceptor>();
             container.InterceptWith<ServiceInterceptor>();
 
             // Services
             TransactionContext.SetOpenConnection(OpenConnection);
             container.Register<ITransactionContext, TransactionContext>(Lifestyle.Scoped);
             container.Register<AuthContext>(Lifestyle.Scoped);
+            container.Register<AuthenticationService>(Lifestyle.Scoped);
             container.Register<EmployeeService>(Lifestyle.Scoped);
 
             // DatabaseAccesses
@@ -70,6 +73,26 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
         }
 
 
+        private static void InterceptWith<TServiceInterface, TInterceptor>(this Container c)
+            where TServiceInterface : class
+            where TInterceptor : class, IInterceptor
+        {
+            c.ExpressionBuilt += (s, e) =>
+            {
+                if (e.RegisteredServiceType.GetInterfaces().Any(x => x == typeof(TServiceInterface)))
+                {
+                    var interceptorExpression =
+                        c.GetRegistration(typeof(TInterceptor), true).BuildExpression();
+
+                    e.Expression = Expression.Convert(
+                        Expression.Invoke(Expression.Constant(CreateProxy),
+                            Expression.Constant(typeof(TServiceInterface), typeof(Type)),
+                            e.Expression,
+                            interceptorExpression),
+                        typeof(TServiceInterface));
+                }
+            };
+        }
 
         private static void InterceptWith<TInterceptor>(this Container c)
             where TInterceptor : class, IInterceptor

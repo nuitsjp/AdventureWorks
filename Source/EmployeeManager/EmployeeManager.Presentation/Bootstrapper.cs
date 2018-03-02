@@ -12,9 +12,13 @@ namespace AdventureWorks.EmployeeManager.Presentation
 {
     class Bootstrapper : AutofacBootstrapper
     {
+
+        private readonly Lazy<IAuthenticationService> _authenticationServiceLazy = new Lazy<IAuthenticationService>(CreateAuthenticationService);
+
         private readonly Lazy<IEmployeeService> _employeeServiceLazy = new Lazy<IEmployeeService>(CreateEmployeeService);
 
-        private static ChannelFactory<IEmployeeService> _channelFactory;
+        private static ChannelFactory<IAuthenticationService> _authenticationServiceChannelFactory;
+        private static ChannelFactory<IEmployeeService> _employeeServiceChannelFactory;
 
         protected override DependencyObject CreateShell()
         {
@@ -39,6 +43,7 @@ namespace AdventureWorks.EmployeeManager.Presentation
             builder.RegisterType<Login>().As<ILogin>().SingleInstance();
 
             // Services
+            builder.RegisterInstance(_authenticationServiceLazy.Value).As<IAuthenticationService>();
             builder.RegisterInstance(_employeeServiceLazy.Value).As<IEmployeeService>();
         }
 
@@ -48,10 +53,15 @@ namespace AdventureWorks.EmployeeManager.Presentation
             //moduleCatalog.AddModule(typeof(YOUR_MODULE));
         }
 
+        private static IAuthenticationService CreateAuthenticationService()
+        {
+            _authenticationServiceChannelFactory = new ChannelFactory<IAuthenticationService>("AuthenticationService");
+            return _authenticationServiceChannelFactory.CreateChannel();
+        }
         private static IEmployeeService CreateEmployeeService()
         {
-            _channelFactory = new ChannelFactory<IEmployeeService>("EmployeeService");
-            return _channelFactory.CreateChannel();
+            _employeeServiceChannelFactory = new ChannelFactory<IEmployeeService>("EmployeeService");
+            return _employeeServiceChannelFactory.CreateChannel();
         }
     }
 }

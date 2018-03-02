@@ -7,7 +7,7 @@ namespace AdventureWorks.EmployeeManager.WindowsService
 {
     public partial class EmployeeManagerServices : ServiceBase
     {
-        private EmployeeServiceHost ServiceHost { get; set; }
+        private SystemManagerServiceHosts ServiceHosts { get; set; }
         public EmployeeManagerServices()
         {
             InitializeComponent();
@@ -15,14 +15,14 @@ namespace AdventureWorks.EmployeeManager.WindowsService
 
         protected override void OnStart(string[] args)
         {
-            ServiceHost = new EmployeeServiceHost();
-            ServiceHost.Open();
+            ServiceHosts = new SystemManagerServiceHosts();
+            ServiceHosts.Open();
         }
 
         protected override void OnStop()
         {
-            ServiceHost.Dispose();
-            ServiceHost = null;
+            ServiceHosts.Dispose();
+            ServiceHosts = null;
         }
     }
 }
