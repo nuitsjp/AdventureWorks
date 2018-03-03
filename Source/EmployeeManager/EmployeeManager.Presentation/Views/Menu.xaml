@@ -9,7 +9,7 @@
              d:DesignWidth="1280" d:DesignHeight="729">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <WrapPanel Margin="20">
-            <Button Content="従業員管理" Width="100" Command="{Binding NavigateManagedEmployeeListCommand}"/>
+            <Button Content="従業員管理" Width="100" Command="{Binding NavigateManagedEmployeeListCommand}" Style="{DynamicResource AccentedSquareButtonStyle}"/>
         </WrapPanel>
     </ScrollViewer>
 </UserControl>
