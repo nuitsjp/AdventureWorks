@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ILogin.cs" />
+    <Compile Include="IManageEmployees.cs" />
     <Compile Include="Login.cs" />
+    <Compile Include="ManageEmployees.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

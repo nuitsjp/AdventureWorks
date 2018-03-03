@@ -7,6 +7,6 @@ namespace AdventureWorks.EmployeeManager.Services
     public interface IEmployeeService
     {
         [OperationContract]
-        IEnumerable<ManagedEmployee> GetManagedEmployees();
+        IList<ManagedEmployee> GetManagedEmployees();
     }
 }

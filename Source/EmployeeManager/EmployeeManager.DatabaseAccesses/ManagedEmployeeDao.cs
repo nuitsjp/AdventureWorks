@@ -18,5 +18,10 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
         {
             _transactionContext = transactionContext;
         }
+
+        public IEnumerable<ManagedEmployee> GetManagedEmployees()
+        {
+            return Connection.Find<ManagedEmployee>();
+        }
     }
 }

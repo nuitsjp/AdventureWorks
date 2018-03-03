@@ -1,9 +1,25 @@
-﻿<UserControl x:Class="AdventureWorks.EmployeeManager.Presentation.Views.ManagedEmployeeList"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:EmployeeManager="clr-namespace:AdventureWorks.EmployeeManager;assembly=AdventureWorks.EmployeeManager"
+             x:Class="AdventureWorks.EmployeeManager.Presentation.Views.ManagedEmployeeList"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignWidth="1280" d:DesignHeight="729">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding AuthenticateCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-            
+
+        <sg:GcSpreadGrid ItemsSource="{Binding ManagedEmployees}">
+        </sg:GcSpreadGrid>
+
     </Grid>
 </UserControl>

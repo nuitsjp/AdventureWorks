@@ -13,8 +13,6 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
     {
         private readonly EmployeeDao _employeeDao;
 
-        internal ManagedEmployee Current { get; private set; }
-
         public AuthContext(EmployeeDao employeeDao)
         {
             _employeeDao = employeeDao;
@@ -23,11 +21,7 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
         internal bool Authenticate()
         {
             var name = ServiceSecurityContext.Current.WindowsIdentity.Name;
-            var employee = _employeeDao.FindByLoginID(name);
-            if (employee == null) return false;
-
-            Current = Mapper.Map<ManagedEmployee>(employee);
-            return true;
+            return _employeeDao.FindByLoginID(name) != null;
         }
     }
 }

@@ -41,6 +41,7 @@ namespace AdventureWorks.EmployeeManager.Presentation
 
             // Usecases
             builder.RegisterType<Login>().As<ILogin>().SingleInstance();
+            builder.RegisterType<ManageEmployees>().As<IManageEmployees>().SingleInstance();
 
             // Services
             builder.RegisterInstance(_authenticationServiceLazy.Value).As<IAuthenticationService>();

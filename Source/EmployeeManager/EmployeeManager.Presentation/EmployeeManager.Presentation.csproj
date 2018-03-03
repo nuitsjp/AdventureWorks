@@ -36,8 +36,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GrapeCity.WPF.CalcEngine, Version=2.0.2017.731, Culture=neutral, PublicKeyToken=6ccb469776ba232c, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.Excel, Version=2.0.2017.731, Culture=neutral, PublicKeyToken=6ccb469776ba232c, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.PDF, Version=2.0.2017.731, Culture=neutral, PublicKeyToken=6ccb469776ba232c, processorArchitecture=MSIL" />
+    <Reference Include="grapecity.wpf.spreadgrid, Version=2.0.2017.731, Culture=neutral, PublicKeyToken=5c5c8ff7a6858ccc, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -112,6 +123,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
