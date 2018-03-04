@@ -37,8 +37,6 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 
         public ReactiveCommand SaveCommand { get; }
 
-        public ReactiveCommand AddToListCommand { get; }
-
         public ManagedEmployeeListViewModel(IManageEmployees manageEmployees, IRegionManager regionManager)
         {
             _manageEmployees = manageEmployees;
@@ -51,9 +49,6 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 
             SaveCommand = this.ObserveProperty(x => x.IsReadOnly).Select(x => !x).ToReactiveCommand();
             SaveCommand.Subscribe(OnSave);
-
-            AddToListCommand = this.ObserveProperty(x => !x.IsReadOnly).Select(x => !x).ToReactiveCommand();
-            AddToListCommand.Subscribe(OnAddToList);
         }
 
         private void OnInitialize()
@@ -90,11 +85,6 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
                     .ToList();
             _manageEmployees.ModifyManagedEmployees(updatedEmployees, newEmployees);
             IsReadOnly = true;
-        }
-
-        private void OnAddToList()
-        {
-            ManagedEmployees.Add(new ManagedEmployeeViewModel());
         }
     }
 }

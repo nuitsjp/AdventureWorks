@@ -32,8 +32,8 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
             Mapper.Initialize(config =>
             {
                 config.CreateTowayMap<ManagedEmployee, DatabaseAccesses.ManagedEmployee>();
-                config.CreateTowayMap<Gender, DatabaseAccesses.Gender>();
-                config.CreateTowayMap<MaritalStatus, MaritalStatu>();
+                config.CreateMap<DatabaseAccesses.Gender, Gender>();
+                config.CreateMap<DatabaseAccesses.MaritalStatu, MaritalStatus>();
             });
         }
 

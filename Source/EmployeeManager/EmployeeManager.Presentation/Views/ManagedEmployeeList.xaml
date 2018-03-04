@@ -37,20 +37,14 @@
                         Command="{Binding PopCommand}">
                     <iconPacks:PackIconEntypo Kind="ArrowBoldLeft"/>
                 </Button>
-                <Rectangle Width="50"/>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="40" Width="40"
-                        Command="{Binding EditCommand}">
-                    <iconPacks:PackIconEntypo Kind="Edit"/>
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="40" Width="40"
-                        Command="{Binding SaveCommand}">
-                    <iconPacks:PackIconEntypo Kind="Save"/>
-                </Button>
-                <Rectangle Width="50"/>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="40" Width="40"
-                        Command="{Binding AddToListCommand}">
-                    <iconPacks:PackIconEntypo Kind="AddToList"/>
-                </Button>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="10, 0"
+                        Content="編集"
+                        Command="{Binding EditCommand}"/>
+                <Button Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="10, 0"
+                        Content="保存"
+                        Command="{Binding SaveCommand}"/>
             </StackPanel>
         </Grid>
         <sg:GcSpreadGrid Grid.Row="1" 

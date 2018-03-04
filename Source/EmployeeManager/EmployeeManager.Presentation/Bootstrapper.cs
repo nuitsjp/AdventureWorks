@@ -14,24 +14,6 @@ namespace AdventureWorks.EmployeeManager.Presentation
 {
     class Bootstrapper : AutofacBootstrapper
     {
-
-        private readonly Lazy<IAuthenticationService> _authenticationServiceLazy = new Lazy<IAuthenticationService>(CreateAuthenticationService);
-
-        private readonly Lazy<IHumanResourcesService> _employeeServiceLazy = new Lazy<IHumanResourcesService>(CreateHumanResourcesService);
-
-        private static ChannelFactory<IAuthenticationService> _authenticationServiceChannelFactory;
-        private static ChannelFactory<IHumanResourcesService> _employeeServiceChannelFactory;
-
-        protected override DependencyObject CreateShell()
-        {
-            return Container.Resolve<MainWindow>();
-        }
-
-        protected override void InitializeShell()
-        {
-            Application.Current.MainWindow.Show();
-        }
-
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             base.ConfigureContainerBuilder(builder);
@@ -46,8 +28,8 @@ namespace AdventureWorks.EmployeeManager.Presentation
             builder.RegisterType<ManageEmployees>().As<IManageEmployees>().SingleInstance();
 
             // Services
-            builder.RegisterInstance(_authenticationServiceLazy.Value).As<IAuthenticationService>();
-            builder.RegisterInstance(_employeeServiceLazy.Value).As<IHumanResourcesService>();
+            builder.Register(_ => CreateAuthenticationService()).As<IAuthenticationService>().SingleInstance();
+            builder.Register(_ => CreateHumanResourcesService()).As<IHumanResourcesService>().SingleInstance();
 
             // Mapper initialize
             Mapper.Initialize(config =>
@@ -55,6 +37,32 @@ namespace AdventureWorks.EmployeeManager.Presentation
                 CreateTowayMap<ManagedEmployee, ManagedEmployeeViewModel>(config);
             });
         }
+
+        protected override DependencyObject CreateShell()
+        {
+            return Container.Resolve<MainWindow>();
+        }
+
+        protected override void InitializeShell()
+        {
+            Application.Current.MainWindow.Show();
+        }
+
+
+        private static ChannelFactory<IAuthenticationService> _authenticationServiceChannelFactory;
+        private static IAuthenticationService CreateAuthenticationService()
+        {
+            _authenticationServiceChannelFactory = new ChannelFactory<IAuthenticationService>("AuthenticationService");
+            return _authenticationServiceChannelFactory.CreateChannel();
+        }
+
+        private static ChannelFactory<IHumanResourcesService> _employeeServiceChannelFactory;
+        private static IHumanResourcesService CreateHumanResourcesService()
+        {
+            _employeeServiceChannelFactory = new ChannelFactory<IHumanResourcesService>("HumanResourcesService");
+            return _employeeServiceChannelFactory.CreateChannel();
+        }
+
 
         private void CreateTowayMap<TLeft, TRight>(IMapperConfigurationExpression config)
         {
@@ -66,17 +74,6 @@ namespace AdventureWorks.EmployeeManager.Presentation
         {
             var moduleCatalog = (ModuleCatalog)ModuleCatalog;
             //moduleCatalog.AddModule(typeof(YOUR_MODULE));
-        }
-
-        private static IAuthenticationService CreateAuthenticationService()
-        {
-            _authenticationServiceChannelFactory = new ChannelFactory<IAuthenticationService>("AuthenticationService");
-            return _authenticationServiceChannelFactory.CreateChannel();
-        }
-        private static IHumanResourcesService CreateHumanResourcesService()
-        {
-            _employeeServiceChannelFactory = new ChannelFactory<IHumanResourcesService>("HumanResourcesService");
-            return _employeeServiceChannelFactory.CreateChannel();
         }
     }
 }
