@@ -68,20 +68,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\EditStatus.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
+    <Compile Include="ViewModels\IMonitorPropertyUpdated.cs" />
     <Compile Include="ViewModels\ManagedEmployeeListViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\MonitorPropertyUpdatedObject.cs" />
     <Compile Include="ViewModels\RegionNames.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Behaviors\SetItemsSourceBehavior.cs" />
+    <Compile Include="Views\Converters\EditStatusConverter.cs" />
+    <Compile Include="Views\Converters\ReverseConverter.cs" />
     <Compile Include="Views\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManagedEmployeeList.xaml.cs">
       <DependentUpon>ManagedEmployeeList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ManagedEmployeeViewModel.cs" />
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\MonitorPropertiesAttribute.cs" />
     <Page Include="Views\Error.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,16 +137,32 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
+    <Resource Include="ManagedEmployeeList.sgxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper">
+      <Version>6.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Cauldron.Interception.Fody">
+      <Version>2.0.29</Version>
+    </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.0</Version>
     </PackageReference>
+    <PackageReference Include="MahApps.Metro.IconPacks.Entypo">
+      <Version>2.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Prism.Autofac" Version="6.3.0" />
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>2.2.9</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveProperty">
+      <Version>4.2.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManager.Services\EmployeeManager.Services.csproj">
@@ -153,6 +177,9 @@
       <Project>{74fcb52c-c4c3-4f49-bbbc-d8c7f349e50d}</Project>
       <Name>EmployeeManager</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

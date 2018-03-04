@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAuthenticationService.cs" />
-    <Compile Include="IEmployeeService.cs" />
+    <Compile Include="IHumanResourcesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

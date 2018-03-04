@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Windows;
+using AdventureWorks.EmployeeManager.Presentation.ViewModels;
 using AdventureWorks.EmployeeManager.Presentation.Views;
 using AdventureWorks.EmployeeManager.Services;
 using AdventureWorks.EmployeeManager.Usecases;
 using Autofac;
+using AutoMapper;
 using Prism.Autofac;
 using Prism.Modularity;
 
@@ -15,10 +17,10 @@ namespace AdventureWorks.EmployeeManager.Presentation
 
         private readonly Lazy<IAuthenticationService> _authenticationServiceLazy = new Lazy<IAuthenticationService>(CreateAuthenticationService);
 
-        private readonly Lazy<IEmployeeService> _employeeServiceLazy = new Lazy<IEmployeeService>(CreateEmployeeService);
+        private readonly Lazy<IHumanResourcesService> _employeeServiceLazy = new Lazy<IHumanResourcesService>(CreateHumanResourcesService);
 
         private static ChannelFactory<IAuthenticationService> _authenticationServiceChannelFactory;
-        private static ChannelFactory<IEmployeeService> _employeeServiceChannelFactory;
+        private static ChannelFactory<IHumanResourcesService> _employeeServiceChannelFactory;
 
         protected override DependencyObject CreateShell()
         {
@@ -45,7 +47,19 @@ namespace AdventureWorks.EmployeeManager.Presentation
 
             // Services
             builder.RegisterInstance(_authenticationServiceLazy.Value).As<IAuthenticationService>();
-            builder.RegisterInstance(_employeeServiceLazy.Value).As<IEmployeeService>();
+            builder.RegisterInstance(_employeeServiceLazy.Value).As<IHumanResourcesService>();
+
+            // Mapper initialize
+            Mapper.Initialize(config =>
+            {
+                CreateTowayMap<ManagedEmployee, ManagedEmployeeViewModel>(config);
+            });
+        }
+
+        private void CreateTowayMap<TLeft, TRight>(IMapperConfigurationExpression config)
+        {
+            config.CreateMap<TLeft, TRight>();
+            config.CreateMap<TRight, TLeft>();
         }
 
         protected override void ConfigureModuleCatalog()
@@ -59,9 +73,9 @@ namespace AdventureWorks.EmployeeManager.Presentation
             _authenticationServiceChannelFactory = new ChannelFactory<IAuthenticationService>("AuthenticationService");
             return _authenticationServiceChannelFactory.CreateChannel();
         }
-        private static IEmployeeService CreateEmployeeService()
+        private static IHumanResourcesService CreateHumanResourcesService()
         {
-            _employeeServiceChannelFactory = new ChannelFactory<IEmployeeService>("EmployeeService");
+            _employeeServiceChannelFactory = new ChannelFactory<IHumanResourcesService>("HumanResourcesService");
             return _employeeServiceChannelFactory.CreateChannel();
         }
     }

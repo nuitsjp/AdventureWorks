@@ -12,7 +12,7 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
         {
             _authenticationServiceHost = new SimpleInjectorServiceHost(Bootstrapper.Container, typeof(AuthenticationService));
             _authenticationServiceHost.Open();
-            _employeeServiceHost = new SimpleInjectorServiceHost(Bootstrapper.Container, typeof(EmployeeService));
+            _employeeServiceHost = new SimpleInjectorServiceHost(Bootstrapper.Container, typeof(HumanResourcesService));
             _employeeServiceHost.Open();
         }
 

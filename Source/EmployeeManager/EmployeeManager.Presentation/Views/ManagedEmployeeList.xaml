@@ -1,24 +1,136 @@
-﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:EmployeeManager="clr-namespace:AdventureWorks.EmployeeManager;assembly=AdventureWorks.EmployeeManager"
+             xmlns:viewModels="clr-namespace:AdventureWorks.EmployeeManager.Presentation.ViewModels"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:behaviors="clr-namespace:AdventureWorks.EmployeeManager.Presentation.Views.Behaviors"
+             xmlns:converters="clr-namespace:AdventureWorks.EmployeeManager.Presentation.Views.Converters"
              x:Class="AdventureWorks.EmployeeManager.Presentation.Views.ManagedEmployeeList"             
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
-             d:DesignWidth="1280" d:DesignHeight="729">
+             d:DesignWidth="1280" d:DesignHeight="729"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:ManagedEmployeeListViewModel}}">
+    <UserControl.Resources>
+        <converters:ReverseConverter x:Key="ReverseConverter"/>
+        <converters:EditStatusConverter x:Key="EditStatusConverter"/>
+        <DataTemplate x:Key="EditStatusElement">
+            <Label Content="{Binding Value, Converter={StaticResource EditStatusConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </DataTemplate>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding AuthenticateCommand}"/>
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-
-        <sg:GcSpreadGrid ItemsSource="{Binding ManagedEmployees}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="{StaticResource ControlBackgroundBrush}" Margin="0,-1,0,1">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="40" Width="40"
+                        Command="{Binding PopCommand}">
+                    <iconPacks:PackIconEntypo Kind="ArrowBoldLeft"/>
+                </Button>
+                <Rectangle Width="50"/>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="40" Width="40"
+                        Command="{Binding EditCommand}">
+                    <iconPacks:PackIconEntypo Kind="Edit"/>
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="40" Width="40"
+                        Command="{Binding SaveCommand}">
+                    <iconPacks:PackIconEntypo Kind="Save"/>
+                </Button>
+                <Rectangle Width="50"/>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="40" Width="40"
+                        Command="{Binding AddToListCommand}">
+                    <iconPacks:PackIconEntypo Kind="AddToList"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <sg:GcSpreadGrid Grid.Row="1" 
+                         ItemsSource="{Binding ManagedEmployees}" 
+                         AutoGenerateColumns="False"
+                         Locked="{Binding IsReadOnly}"
+                         Protected="{Binding IsReadOnly}" 
+                         CanUserAddRows="{Binding IsReadOnly, Converter={StaticResource ReverseConverter}}">
+            <i:Interaction.Behaviors>
+                <behaviors:SetItemsSourceBehavior ComboBoxCell="{Binding ElementName=Gender}"
+                                                  ItemsSource="{Binding Genders}"/>
+                <behaviors:SetItemsSourceBehavior ComboBoxCell="{Binding ElementName=MaritalStatus}"
+                                                  ItemsSource="{Binding MaritalStatuses}"/>
+            </i:Interaction.Behaviors>
+            <sg:GcSpreadGrid.Columns>
+                <sg:Column Header="状態" Focusable="False" Locked="True" HorizontalAlignment="Center" Width="40">
+                    <sg:Column.DataField>
+                        <sg:PropertyDataField Property="EditStatus" Converter="{StaticResource EditStatusConverter}"/>
+                    </sg:Column.DataField>
+                </sg:Column>
+                <sg:Column Header="名" DataField="FirstName">
+                    <sg:Column.CellType>
+                        <sg:TextCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="姓" DataField="LastName">
+                    <sg:Column.CellType>
+                        <sg:TextCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="肩書" DataField="JobTitle" Width="200">
+                    <sg:Column.CellType>
+                        <sg:TextCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="アカウント" DataField="LoginID" Width="150">
+                    <sg:Column.CellType>
+                        <sg:TextCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="入社年月日" DataField="HireDate" Width="100">
+                    <sg:Column.CellType>
+                        <sg:DateTimeCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="有給休暇" DataField="VacationHours">
+                    <sg:Column.CellType>
+                        <sg:NumberCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="傷病休暇" DataField="SickLeaveHours">
+                    <sg:Column.CellType>
+                        <sg:NumberCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="National ID Number" DataField="NationalIDNumber" Width="120">
+                    <sg:Column.CellType>
+                        <sg:TextCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="誕生日" DataField="BirthDate" Width="100">
+                    <sg:Column.CellType>
+                        <sg:DateTimeCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="性別" DataField="Gender">
+                    <sg:Column.CellType>
+                        <sg:ComboBoxCellType x:Name="Gender"
+                                             ContentPath="Name"
+                                             SelectedValuePath="Code"/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="配偶者有無" DataField="MaritalStatus" HorizontalAlignment="Center">
+                    <sg:Column.CellType>
+                        <sg:ComboBoxCellType x:Name="MaritalStatus"
+                                             ContentPath="Name"
+                                             SelectedValuePath="Code"/>
+                    </sg:Column.CellType>
+                </sg:Column>
+            </sg:GcSpreadGrid.Columns>
         </sg:GcSpreadGrid>
 
     </Grid>

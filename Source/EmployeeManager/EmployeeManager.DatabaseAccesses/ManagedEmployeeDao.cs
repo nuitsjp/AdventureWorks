@@ -19,9 +19,6 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
             _transactionContext = transactionContext;
         }
 
-        public IEnumerable<ManagedEmployee> GetManagedEmployees()
-        {
-            return Connection.Find<ManagedEmployee>();
-        }
+        public IEnumerable<ManagedEmployee> GetManagedEmployees() => Connection.Find<ManagedEmployee>();
     }
 }

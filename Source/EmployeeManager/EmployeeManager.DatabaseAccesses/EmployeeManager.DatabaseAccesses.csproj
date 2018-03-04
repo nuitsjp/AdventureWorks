@@ -52,15 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessEntityDao.cs" />
     <Compile Include="EmployeeDao.cs" />
+    <Compile Include="GenderDao.cs" />
     <Compile Include="ITransaction.cs" />
     <Compile Include="ITransactionContext.cs" />
     <Compile Include="ManagedEmployeeDao.cs" />
+    <Compile Include="MaritalStatusDao.cs" />
     <Compile Include="Models\ModelGeneratorConfig.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelGeneratorConfig.tt</DependentUpon>
     </Compile>
+    <Compile Include="PersonDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="TransactionContext.cs" />
