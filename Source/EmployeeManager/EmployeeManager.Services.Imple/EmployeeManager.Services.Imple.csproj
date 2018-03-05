@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthContext.cs" />
+    <Compile Include="AuthenticationInterceptor.cs" />
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="HumanResourcesService.cs" />

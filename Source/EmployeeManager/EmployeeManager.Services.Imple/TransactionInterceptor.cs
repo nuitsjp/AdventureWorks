@@ -12,6 +12,10 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
 {
     public class TransactionInterceptor : IInterceptor
     {
+        public const int DefaultMaxRetryCount = 5;
+
+        public static int MaxRetryCount { get; set; } = DefaultMaxRetryCount;
+
         private readonly ITransactionContext _transactionContext;
 
         public TransactionInterceptor(ITransactionContext transactionContext)
@@ -21,10 +25,22 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
 
         public void Intercept(IInvocation invocation)
         {
-            using (var transaction = _transactionContext.Open())
+            for (var i = 1; ; i++)
             {
-                invocation.Proceed();
-                transaction.Complete();
+                try
+                {
+                    using (var transaction = _transactionContext.Open())
+                    {
+                        invocation.Proceed();
+                        transaction.Complete();
+                    }
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    // デッドロックで、最大リトライ回数を超えていない場合は再実行する
+                    // それ以外は例外をスローする
+                    if (ex.Number != 1205 || i == DefaultMaxRetryCount) throw;
+                }
             }
         }
     }
