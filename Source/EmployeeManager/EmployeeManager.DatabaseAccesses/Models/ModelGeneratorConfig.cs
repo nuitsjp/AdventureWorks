@@ -952,31 +952,6 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
     }
 
     /// <summary>
-    /// A class which represents the ManagedEmployee view.
-    /// </summary>
-    [Table("ManagedEmployee", Schema = "HumanResources")]
-    public partial class ManagedEmployee
-    {
-        public virtual int BusinessEntityID { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual int EmailPromotion { get; set; }
-        public virtual string NationalIDNumber { get; set; }
-        public virtual string LoginID { get; set; }
-        public virtual string JobTitle { get; set; }
-        public virtual DateTime BirthDate { get; set; }
-        public virtual string MaritalStatus { get; set; }
-        public virtual string Gender { get; set; }
-        public virtual DateTime HireDate { get; set; }
-        public virtual bool SalariedFlag { get; set; }
-        public virtual short VacationHours { get; set; }
-        public virtual short SickLeaveHours { get; set; }
-        public virtual bool CurrentFlag { get; set; }
-        public virtual short DepartmentID { get; set; }
-        public virtual byte ShiftID { get; set; }
-    }
-
-    /// <summary>
     /// A class which represents the ProductListPriceHistory table.
     /// </summary>
     [Table("ProductListPriceHistory", Schema = "Production")]
@@ -1332,6 +1307,28 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
         public virtual int AddressTypeID { get; set; }
         public virtual Guid rowguid { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
+    }
+
+    /// <summary>
+    /// A class which represents the ManagedEmployee view.
+    /// </summary>
+    [Table("ManagedEmployee", Schema = "HumanResources")]
+    public partial class ManagedEmployee
+    {
+        public virtual int BusinessEntityID { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string NationalIDNumber { get; set; }
+        public virtual string LoginID { get; set; }
+        public virtual string JobTitle { get; set; }
+        public virtual DateTime BirthDate { get; set; }
+        public virtual string MaritalStatus { get; set; }
+        public virtual string Gender { get; set; }
+        public virtual DateTime HireDate { get; set; }
+        public virtual bool SalariedFlag { get; set; }
+        public virtual short VacationHours { get; set; }
+        public virtual short SickLeaveHours { get; set; }
+        public virtual bool CurrentFlag { get; set; }
     }
 
     /// <summary>

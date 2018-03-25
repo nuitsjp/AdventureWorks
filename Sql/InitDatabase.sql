@@ -34,7 +34,6 @@ as select
 	Employee.BusinessEntityID,
 	Person.FirstName,
 	Person.LastName,
-	Person.EmailPromotion,
 	Employee.NationalIDNumber,
 	Employee.LoginID,
 	Employee.JobTitle,
@@ -45,20 +44,13 @@ as select
 	Employee.SalariedFlag,
 	Employee.VacationHours,
 	Employee.SickLeaveHours,
-	Employee.CurrentFlag,
-	EmployeeDepartmentHistory.DepartmentID,
-	EmployeeDepartmentHistory.ShiftID
+	Employee.CurrentFlag
 from
 	HumanResources.Employee
 	inner join Person.BusinessEntity
 		on	Employee.BusinessEntityID = BusinessEntity.BusinessEntityID
 	inner join Person.Person
 		on	Employee.BusinessEntityID = Person.BusinessEntityID
-	inner join HumanResources.EmployeeDepartmentHistory
-		on	Employee.BusinessEntityID = EmployeeDepartmentHistory.BusinessEntityID
-		and EmployeeDepartmentHistory.EndDate is null
-	inner join HumanResources.Shift
-		on	EmployeeDepartmentHistory.ShiftID = Shift.ShiftID
 GO
 
 /* Drop Tables */

@@ -33,6 +33,7 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
                     {
                         invocation.Proceed();
                         transaction.Complete();
+                        break;
                     }
                 }
                 catch (System.Data.SqlClient.SqlException ex)

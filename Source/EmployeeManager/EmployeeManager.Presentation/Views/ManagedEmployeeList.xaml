@@ -52,6 +52,9 @@
                          AutoGenerateColumns="False"
                          Locked="{Binding IsReadOnly}"
                          Protected="{Binding IsReadOnly}" 
+                         CanUserSortColumns="True"
+                         CanUserFilterColumns="True"
+                         ColumnDragMode="SelectThenDrag"
                          CanUserAddRows="{Binding IsReadOnly, Converter={StaticResource ReverseConverter}}">
             <i:Interaction.Behaviors>
                 <behaviors:SetItemsSourceBehavior ComboBoxCell="{Binding ElementName=Gender}"
@@ -60,11 +63,6 @@
                                                   ItemsSource="{Binding MaritalStatuses}"/>
             </i:Interaction.Behaviors>
             <sg:GcSpreadGrid.Columns>
-                <sg:Column Header="状態" Focusable="False" Locked="True" HorizontalAlignment="Center" Width="40">
-                    <sg:Column.DataField>
-                        <sg:PropertyDataField Property="EditStatus" Converter="{StaticResource EditStatusConverter}"/>
-                    </sg:Column.DataField>
-                </sg:Column>
                 <sg:Column Header="名" DataField="FirstName">
                     <sg:Column.CellType>
                         <sg:TextCellType/>
@@ -73,6 +71,20 @@
                 <sg:Column Header="姓" DataField="LastName">
                     <sg:Column.CellType>
                         <sg:TextCellType/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="性別" DataField="Gender">
+                    <sg:Column.CellType>
+                        <sg:ComboBoxCellType x:Name="Gender"
+                                             ContentPath="Name"
+                                             SelectedValuePath="Code"/>
+                    </sg:Column.CellType>
+                </sg:Column>
+                <sg:Column Header="配偶者有無" DataField="MaritalStatus" HorizontalAlignment="Center">
+                    <sg:Column.CellType>
+                        <sg:ComboBoxCellType x:Name="MaritalStatus"
+                                             ContentPath="Name"
+                                             SelectedValuePath="Code"/>
                     </sg:Column.CellType>
                 </sg:Column>
                 <sg:Column Header="肩書" DataField="JobTitle" Width="200">
@@ -108,20 +120,6 @@
                 <sg:Column Header="誕生日" DataField="BirthDate" Width="100">
                     <sg:Column.CellType>
                         <sg:DateTimeCellType/>
-                    </sg:Column.CellType>
-                </sg:Column>
-                <sg:Column Header="性別" DataField="Gender">
-                    <sg:Column.CellType>
-                        <sg:ComboBoxCellType x:Name="Gender"
-                                             ContentPath="Name"
-                                             SelectedValuePath="Code"/>
-                    </sg:Column.CellType>
-                </sg:Column>
-                <sg:Column Header="配偶者有無" DataField="MaritalStatus" HorizontalAlignment="Center">
-                    <sg:Column.CellType>
-                        <sg:ComboBoxCellType x:Name="MaritalStatus"
-                                             ContentPath="Name"
-                                             SelectedValuePath="Code"/>
                     </sg:Column.CellType>
                 </sg:Column>
             </sg:GcSpreadGrid.Columns>

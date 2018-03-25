@@ -22,7 +22,5 @@ namespace AdventureWorks.EmployeeManager
         public virtual short VacationHours { get; set; }
         public virtual short SickLeaveHours { get; set; }
         public virtual bool CurrentFlag { get; set; }
-        public virtual short DepartmentID { get; set; }
-        public virtual byte ShiftID { get; set; }
     }
 }
