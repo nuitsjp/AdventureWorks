@@ -2,8 +2,8 @@
 {
     public enum EditStatus
     {
-        UnUpdated,
-        Updated,
-        Created
+        UnModified,
+        Modified,
+        New
     }
 }

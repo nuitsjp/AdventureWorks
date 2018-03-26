@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
-using AdventureWorks.EmployeeManager.Usecases;
+using AdventureWorks.EmployeeManager.Services;
 using AutoMapper;
 using Prism.Regions;
 using PropertyChanged;
@@ -19,7 +19,7 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
     public class ManagedEmployeeListViewModel : ViewModelBase
     {
         private readonly IRegionManager _regionManager;
-        private readonly IManageEmployees _manageEmployees;
+        private readonly IHumanResourcesService _humanResourcesService;
 
         public IEnumerable<Gender> Genders { get; private set; }
 
@@ -37,9 +37,9 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 
         public ReactiveCommand SaveCommand { get; }
 
-        public ManagedEmployeeListViewModel(IManageEmployees manageEmployees, IRegionManager regionManager)
+        public ManagedEmployeeListViewModel(IHumanResourcesService humanResourcesService, IRegionManager regionManager)
         {
-            _manageEmployees = manageEmployees;
+            _humanResourcesService = humanResourcesService;
             _regionManager = regionManager;
 
             PopCommand = new DelegateCommand(() => Pop(_regionManager));
@@ -53,10 +53,15 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 
         private void OnInitialize()
         {
-            Genders = _manageEmployees.GetGenders().OrderBy(x => x.Code);
-            MaritalStatuses = _manageEmployees.GetMaritalStatuses().OrderBy(x => x.Code);
+            Genders = _humanResourcesService.GetGenders().OrderBy(x => x.Code);
+            MaritalStatuses = _humanResourcesService.GetMaritalStatuses().OrderBy(x => x.Code);
 
-            var managedEmployees = _manageEmployees.GetManagedEmployees();
+            LoadManagedEmployees();
+        }
+
+        private void LoadManagedEmployees()
+        {
+            var managedEmployees = _humanResourcesService.GetManagedEmployees();
             foreach (var managedEmployee in managedEmployees)
             {
                 ManagedEmployees.Add(new ManagedEmployeeViewModel(managedEmployee));
@@ -67,23 +72,18 @@ namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
         {
             var updatedEmployees = 
                 ManagedEmployees
-                    .Where(x => x.EditStatus == EditStatus.Updated)
-                    .Select(x =>
-                    {
-                        x.Commit();
-                        return x.ManagedEmployee;
-                    })
+                    .Where(x => x.EditStatus == EditStatus.Modified)
+                    .Select(x => x.Commit())
                     .ToList();
             var newEmployees =
                 ManagedEmployees
-                    .Where(x => x.EditStatus == EditStatus.Created)
-                    .Select(x =>
-                    {
-                        x.Commit();
-                        return x.ManagedEmployee;
-                    })
+                    .Where(x => x.EditStatus == EditStatus.New)
+                    .Select(x => x.Commit())
                     .ToList();
-            _manageEmployees.ModifyManagedEmployees(updatedEmployees, newEmployees);
+            _humanResourcesService.ModifyManagedEmployees(updatedEmployees, newEmployees);
+
+            ManagedEmployees.Clear();
+            LoadManagedEmployees();
             IsReadOnly = true;
         }
     }

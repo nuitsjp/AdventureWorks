@@ -63,6 +63,11 @@
                                                   ItemsSource="{Binding MaritalStatuses}"/>
             </i:Interaction.Behaviors>
             <sg:GcSpreadGrid.Columns>
+                <sg:Column Header="状態" Focusable="False" Locked="True" HorizontalAlignment="Center" Width="40">
+                    <sg:Column.DataField>
+                        <sg:PropertyDataField Property="EditStatus" Converter="{StaticResource EditStatusConverter}"/>
+                    </sg:Column.DataField>
+                </sg:Column>
                 <sg:Column Header="名" DataField="FirstName">
                     <sg:Column.CellType>
                         <sg:TextCellType/>
@@ -104,12 +109,12 @@
                 </sg:Column>
                 <sg:Column Header="有給休暇" DataField="VacationHours">
                     <sg:Column.CellType>
-                        <sg:NumberCellType/>
+                        <sg:NumberCellType MinValue="0" MaxValue="100"/>
                     </sg:Column.CellType>
                 </sg:Column>
                 <sg:Column Header="傷病休暇" DataField="SickLeaveHours">
                     <sg:Column.CellType>
-                        <sg:NumberCellType/>
+                        <sg:NumberCellType MinValue="0" MaxValue="100"/>
                     </sg:Column.CellType>
                 </sg:Column>
                 <sg:Column Header="National ID Number" DataField="NationalIDNumber" Width="120">

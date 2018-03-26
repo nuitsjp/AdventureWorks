@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManager.ServiceHost
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManager.WindowsService", "EmployeeManager.WindowsService\EmployeeManager.WindowsService.csproj", "{6F99B138-7708-408C-9700-D48176991639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManager.Usecases", "EmployeeManager.Usecases\EmployeeManager.Usecases.csproj", "{0D4319C6-88B0-4AC9-A8C9-7958D1E5481E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{6F99B138-7708-408C-9700-D48176991639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F99B138-7708-408C-9700-D48176991639}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F99B138-7708-408C-9700-D48176991639}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D4319C6-88B0-4AC9-A8C9-7958D1E5481E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D4319C6-88B0-4AC9-A8C9-7958D1E5481E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D4319C6-88B0-4AC9-A8C9-7958D1E5481E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D4319C6-88B0-4AC9-A8C9-7958D1E5481E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

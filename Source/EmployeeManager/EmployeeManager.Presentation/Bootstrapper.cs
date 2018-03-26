@@ -4,7 +4,6 @@ using System.Windows;
 using AdventureWorks.EmployeeManager.Presentation.ViewModels;
 using AdventureWorks.EmployeeManager.Presentation.Views;
 using AdventureWorks.EmployeeManager.Services;
-using AdventureWorks.EmployeeManager.Usecases;
 using Autofac;
 using AutoMapper;
 using Prism.Autofac;
@@ -22,10 +21,6 @@ namespace AdventureWorks.EmployeeManager.Presentation
             builder.RegisterTypeForNavigation<Error>();
             builder.RegisterTypeForNavigation<Menu>();
             builder.RegisterTypeForNavigation<ManagedEmployeeList>();
-
-            // Usecases
-            builder.RegisterType<Login>().As<ILogin>().SingleInstance();
-            builder.RegisterType<ManageEmployees>().As<IManageEmployees>().SingleInstance();
 
             // Services
             builder.Register(_ => CreateAuthenticationService()).As<IAuthenticationService>().SingleInstance();

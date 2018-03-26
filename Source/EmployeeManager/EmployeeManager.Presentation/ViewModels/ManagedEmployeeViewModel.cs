@@ -1,96 +1,92 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
+using PropertyChanged;
 
 namespace AdventureWorks.EmployeeManager.Presentation.ViewModels
 {
-    public class ManagedEmployeeViewModel : MonitorPropertyUpdatedObject
+    [AddINotifyPropertyChangedInterface]
+    public class ManagedEmployeeViewModel : INotifyPropertyChanged
     {
-        public ManagedEmployee ManagedEmployee { get; }
+        private readonly ManagedEmployee _managedEmployee;
+
+        public EditStatus EditStatus { get; private set; }
+
+        public virtual int BusinessEntityID { get; set; }
+
+        [Required]
+        public virtual string FirstName { get; set; }
+
+        [Required]
+        public virtual string LastName { get; set; }
+
+        [Required]
+        public virtual int EmailPromotion { get; set; }
+
+        [Required]
+        public virtual string NationalIDNumber { get; set; }
+
+        [Required]
+        public virtual string LoginID { get; set; }
+
+        [Required]
+        public virtual string JobTitle { get; set; }
+
+        [Required]
+        public virtual DateTime? BirthDate { get; set; }
+
+        [Required]
+        public virtual string MaritalStatus { get; set; }
+
+        [Required]
+        public virtual string Gender { get; set; }
+
+        [Required]
+        public virtual DateTime? HireDate { get; set; }
+
+        [Required]
+        public virtual bool SalariedFlag { get; set; }
+
+        [Required]
+        public virtual short VacationHours { get; set; }
+
+        [Required]
+        public virtual short SickLeaveHours { get; set; }
+
+        [Required]
+        public virtual bool CurrentFlag { get; set; }
 
         public ManagedEmployeeViewModel()
         {
-            ManagedEmployee = new ManagedEmployee();
-            SetEditStatus(EditStatus.Created);
+            _managedEmployee = new ManagedEmployee();
+            EditStatus = EditStatus.New;
         }
 
         public ManagedEmployeeViewModel(ManagedEmployee managedEmployee)
         {
-            ManagedEmployee = managedEmployee;
-            Mapper.Map(ManagedEmployee, this);
-            SetEditStatus(EditStatus.UnUpdated);
+            _managedEmployee = managedEmployee;
+            EditStatus = EditStatus.UnModified;
+            Mapper.Map(managedEmployee, this);
+            PropertyChanged += ChangedProperty;
         }
 
-        [MonitorProperties]
-        public virtual int BusinessEntityID { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual string FirstName { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual string LastName { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual int EmailPromotion { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual string NationalIDNumber { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual string LoginID { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual string JobTitle { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual DateTime? BirthDate { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual string MaritalStatus { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual string Gender { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual DateTime? HireDate { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual bool SalariedFlag { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual short VacationHours { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual short SickLeaveHours { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual bool CurrentFlag { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual short DepartmentID { get; set; }
-
-        [MonitorProperties]
-        [Required]
-        public virtual byte ShiftID { get; set; }
-
-        public void Commit()
+        private void ChangedProperty(object sender, PropertyChangedEventArgs e)
         {
-            Mapper.Map(this, ManagedEmployee);
+            if (EditStatus == EditStatus.UnModified 
+                && e.PropertyName != nameof(EditStatus))
+            {
+                EditStatus = EditStatus.Modified;
+            }
         }
+
+        public ManagedEmployee Commit()
+        {
+            Mapper.Map(this, _managedEmployee);
+            EditStatus = EditStatus.UnModified;
+            return _managedEmployee;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

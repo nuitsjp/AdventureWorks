@@ -73,7 +73,6 @@
     <Compile Include="ViewModels\IMonitorPropertyUpdated.cs" />
     <Compile Include="ViewModels\ManagedEmployeeListViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
-    <Compile Include="ViewModels\MonitorPropertyUpdatedObject.cs" />
     <Compile Include="ViewModels\RegionNames.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Behaviors\SetItemsSourceBehavior.cs" />
@@ -89,7 +88,6 @@
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\MonitorPropertiesAttribute.cs" />
     <Page Include="Views\Error.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,9 +145,6 @@
     <PackageReference Include="AutoMapper">
       <Version>6.2.2</Version>
     </PackageReference>
-    <PackageReference Include="Cauldron.Interception.Fody">
-      <Version>2.0.29</Version>
-    </PackageReference>
     <PackageReference Include="ControlzEx">
       <Version>3.0.2.4</Version>
     </PackageReference>
@@ -174,10 +169,6 @@
     <ProjectReference Include="..\EmployeeManager.Services\EmployeeManager.Services.csproj">
       <Project>{ed257d22-a339-4be2-b02c-f3cd0f5aa6d6}</Project>
       <Name>EmployeeManager.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EmployeeManager.Usecases\EmployeeManager.Usecases.csproj">
-      <Project>{0d4319c6-88b0-4ac9-a8c9-7958d1e5481e}</Project>
-      <Name>EmployeeManager.Usecases</Name>
     </ProjectReference>
     <ProjectReference Include="..\EmployeeManager\EmployeeManager.csproj">
       <Project>{74fcb52c-c4c3-4f49-bbbc-d8c7f349e50d}</Project>

@@ -17,12 +17,12 @@ namespace AdventureWorks.EmployeeManager.Presentation.Views.Converters
             {
                 switch (editStatus)
                 {
-                    case EditStatus.UnUpdated:
+                    case EditStatus.UnModified:
                         return string.Empty;
-                    case EditStatus.Updated:
-                        return "U";
-                    case EditStatus.Created:
-                        return "C";
+                    case EditStatus.Modified:
+                        return "M";
+                    case EditStatus.New:
+                        return "N";
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -33,7 +33,8 @@ namespace AdventureWorks.EmployeeManager.Presentation.Views.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException();
+            // ignore
+            return value;
         }
     }
 }

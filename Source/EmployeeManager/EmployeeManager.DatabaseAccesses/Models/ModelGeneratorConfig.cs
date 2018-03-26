@@ -151,6 +151,7 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
         public virtual int EmailPromotion { get; set; }
         public virtual string AdditionalContactInfo { get; set; }
         public virtual string Demographics { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid rowguid { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
     }
@@ -1256,6 +1257,7 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int BusinessEntityID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid rowguid { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
     }
@@ -1700,6 +1702,7 @@ namespace AdventureWorks.EmployeeManager.DatabaseAccesses
         public virtual short VacationHours { get; set; }
         public virtual short SickLeaveHours { get; set; }
         public virtual bool CurrentFlag { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid rowguid { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
     }

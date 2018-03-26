@@ -55,8 +55,8 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
             TransactionContext.SetOpenConnection(OpenConnection);
             container.Register<ITransactionContext, TransactionContext>(Lifestyle.Scoped);
             container.Register<AuthContext>(Lifestyle.Scoped);
-            container.Register<AuthenticationService>(Lifestyle.Scoped);
-            container.Register<HumanResourcesService>(Lifestyle.Scoped);
+            container.Register<IAuthenticationService, AuthenticationService>(Lifestyle.Scoped);
+            container.Register<IHumanResourcesService, HumanResourcesService>(Lifestyle.Scoped);
 
             // DatabaseAccesses
             container.Register<GenderDao>(Lifestyle.Scoped);
@@ -99,26 +99,6 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
                             e.Expression,
                             interceptorExpression),
                         typeof(TServiceInterface));
-                }
-            };
-        }
-
-        private static void InterceptWith<TInterceptor>(this Container c)
-            where TInterceptor : class, IInterceptor
-        {
-            c.ExpressionBuilt += (s, e) =>
-            {
-                if (e.RegisteredServiceType == typeof(HumanResourcesService))
-                {
-                    var interceptorExpression =
-                        c.GetRegistration(typeof(TInterceptor), true).BuildExpression();
-
-                    e.Expression = Expression.Convert(
-                        Expression.Invoke(Expression.Constant(CreateProxy),
-                            Expression.Constant(typeof(IHumanResourcesService), typeof(Type)),
-                            e.Expression,
-                            interceptorExpression),
-                        typeof(IHumanResourcesService));
                 }
             };
         }
