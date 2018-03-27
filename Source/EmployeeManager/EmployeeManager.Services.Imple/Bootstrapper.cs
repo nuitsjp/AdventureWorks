@@ -16,7 +16,7 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
     {
         private static readonly ProxyGenerator Generator = new ProxyGenerator();
 
-        private static readonly Func<Type, object, IInterceptor, object> CreateProxy =
+        private static readonly Func<Type, object, IInterceptor[], object> CreateProxy =
             (p, t, i) => Generator.CreateInterfaceProxyWithTarget(p, t, i);
 
         public static Container Container;
@@ -48,8 +48,8 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
 
-            container.InterceptWith<IAuthenticationService, TransactionInterceptor>();
-            container.InterceptWith<IHumanResourcesService, TransactionInterceptor>();
+            container.InterceptWith<IAuthenticationService>(typeof(TransactionInterceptor));
+            container.InterceptWith<IHumanResourcesService>(typeof(TransactionInterceptor), typeof(AuthenticationInterceptor));
 
             // Services
             TransactionContext.SetOpenConnection(OpenConnection);
@@ -82,16 +82,14 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
         }
 
 
-        private static void InterceptWith<TServiceInterface, TInterceptor>(this Container c)
+        private static void InterceptWith<TServiceInterface>(this Container c, params Type[] interceptorTypes)
             where TServiceInterface : class
-            where TInterceptor : class, IInterceptor
         {
             c.ExpressionBuilt += (s, e) =>
             {
                 if (e.RegisteredServiceType.GetInterfaces().Any(x => x == typeof(TServiceInterface)))
                 {
-                    var interceptorExpression =
-                        c.GetRegistration(typeof(TInterceptor), true).BuildExpression();
+                    var interceptorExpression = BuildInterceptorExpressions(c, interceptorTypes);
 
                     e.Expression = Expression.Convert(
                         Expression.Invoke(Expression.Constant(CreateProxy),
@@ -101,6 +99,26 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
                         typeof(TServiceInterface));
                 }
             };
+        }
+
+        private static Expression BuildInterceptorExpressions(Container container, params Type[] interceptorTypes)
+        {
+            return Expression.NewArrayInit(
+                typeof(IInterceptor),
+                interceptorTypes.Select(x => BuildInterceptorExpression(container, x)).ToArray());
+        }
+
+        private static Expression BuildInterceptorExpression(Container container, Type interceptorType)
+        {
+            var interceptorRegistration = container.GetRegistration(interceptorType);
+
+            if (interceptorRegistration == null)
+            {
+                // This will throw an ActivationException
+                container.GetInstance(interceptorType);
+            }
+
+            return interceptorRegistration.BuildExpression();
         }
     }
 }
