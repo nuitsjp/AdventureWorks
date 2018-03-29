@@ -8,6 +8,7 @@ using AdventureWorks.EmployeeManager.DatabaseAccesses;
 using AutoMapper;
 using Castle.DynamicProxy;
 using SimpleInjector;
+using SimpleInjector.Extras.DynamicProxy;
 using SimpleInjector.Integration.Wcf;
 
 namespace AdventureWorks.EmployeeManager.Services.Imple
@@ -48,8 +49,8 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
 
-            container.InterceptWith<IAuthenticationService>(typeof(TransactionInterceptor));
-            container.InterceptWith<IHumanResourcesService>(typeof(TransactionInterceptor), typeof(AuthenticationInterceptor));
+            container.Intercept<IAuthenticationService>(typeof(TransactionInterceptor));
+            container.Intercept<IHumanResourcesService>(typeof(TransactionInterceptor), typeof(AuthenticationInterceptor));
 
             // Services
             TransactionContext.SetOpenConnection(OpenConnection);
