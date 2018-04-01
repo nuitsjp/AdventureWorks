@@ -49,8 +49,10 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
 
-            container.Intercept<IAuthenticationService>(typeof(TransactionInterceptor));
-            container.Intercept<IHumanResourcesService>(typeof(TransactionInterceptor), typeof(AuthenticationInterceptor));
+            container.Intercept<IAuthenticationService>(
+                typeof(AntiDeadlockInterceptor), typeof(TransactionInterceptor));
+            container.Intercept<IHumanResourcesService>(
+                typeof(AntiDeadlockInterceptor), typeof(TransactionInterceptor), typeof(AuthenticationInterceptor));
 
             // Services
             TransactionContext.SetOpenConnection(OpenConnection);

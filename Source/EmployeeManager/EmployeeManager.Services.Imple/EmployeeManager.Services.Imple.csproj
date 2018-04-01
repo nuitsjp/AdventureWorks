@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntiDeadlockInterceptor.cs" />
     <Compile Include="AuthContext.cs" />
     <Compile Include="AuthenticationInterceptor.cs" />
     <Compile Include="AuthenticationService.cs" />

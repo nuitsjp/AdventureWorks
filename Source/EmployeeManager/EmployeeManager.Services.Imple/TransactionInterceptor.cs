@@ -25,23 +25,10 @@ namespace AdventureWorks.EmployeeManager.Services.Imple
 
         public void Intercept(IInvocation invocation)
         {
-            for (var i = 1; ; i++)
+            using (var transaction = _transactionContext.Open())
             {
-                try
-                {
-                    using (var transaction = _transactionContext.Open())
-                    {
-                        invocation.Proceed();
-                        transaction.Complete();
-                        break;
-                    }
-                }
-                catch (System.Data.SqlClient.SqlException ex)
-                {
-                    // デッドロックで、最大リトライ回数を超えていない場合は再実行する
-                    // それ以外は例外をスローする
-                    if (ex.Number != 1205 || i == DefaultMaxRetryCount) throw;
-                }
+                invocation.Proceed();
+                transaction.Complete();
             }
         }
     }
