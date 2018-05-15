@@ -1,3 +1,14 @@
+# はじめに
+
+本アンプルアプリは、CodeZine様にて記載させていただいた以下の記事のサンプルコードになります。
+
+* https://codezine.jp/article/detail/10727  
+* https://codezine.jp/article/detail/10761  
+
+本READMEには、サンプルアプリケーションの実行方法のみを記載しています。
+
+詳細な解説は上記のリンク先で記述していますので、そちらをご覧ください。
+
 # 本アプリケーションの前提条件
 
 * Visual Studio 2017  
